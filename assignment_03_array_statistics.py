@@ -39,3 +39,71 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def calculate_total(number_list):
+
+    total_value = 0
+
+    for current_number in number_list:
+        total_value = total_value + current_number
+
+    return total_value
+
+
+def calculate_average(number_list):
+
+    total_value = calculate_total(number_list)
+    average_value = total_value / len(number_list)
+
+    return average_value
+
+
+def find_maximum(number_list):
+
+    maximum_value = number_list[0]
+
+    for current_number in number_list:
+        if current_number > maximum_value:
+            maximum_value = current_number
+
+    return maximum_value
+
+
+def find_minimum(number_list):
+
+    minimum_value = number_list[0]
+
+    for current_number in number_list:
+        if current_number < minimum_value:
+            minimum_value = current_number
+
+    return minimum_value
+
+
+def main():
+
+    number_count = int(input("How many numbers? "))
+
+    if number_count <= 0:
+        print("Error: The number must be a positive integer.")
+        return
+
+    entered_numbers = []
+
+    for number_position in range(1, number_count + 1):
+        user_number = float(input("Enter number " + str(number_position) + ": "))
+        entered_numbers.append(user_number)
+
+    total_result = calculate_total(entered_numbers)
+    average_result = calculate_average(entered_numbers)
+    maximum_result = find_maximum(entered_numbers)
+    minimum_result = find_minimum(entered_numbers)
+
+    print()
+    print("Results:")
+    print("Sum:    ", total_result)
+    print("Average:", average_result)
+    print("Maximum:", maximum_result)
+    print("Minimum:", minimum_result)
+
+
+main()
