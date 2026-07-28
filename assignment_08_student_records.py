@@ -90,3 +90,179 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def calculate_average(student_scores):
+
+    total_score = 0
+
+    for current_score in student_scores:
+        total_score = total_score + current_score
+
+    average_score = total_score / len(student_scores)
+
+    return round(average_score, 2)
+
+
+def add_student(student_records):
+
+    student_name = input("Student name: ")
+    student_id = int(input("Student ID: "))
+
+    for current_student in student_records:
+
+        if current_student["id"] == student_id:
+            print("Error: This student ID already exists.")
+            return
+
+    number_of_scores = int(input("How many scores? "))
+
+    if number_of_scores <= 0:
+        print("Error: Number of scores must be positive.")
+        return
+
+    student_scores = []
+
+    for score_number in range(1, number_of_scores + 1):
+
+        current_score = float(
+            input("Enter score " + str(score_number) + ": ")
+        )
+
+        student_scores.append(current_score)
+
+    new_student = {
+        "name": student_name,
+        "id": student_id,
+        "scores": student_scores
+    }
+
+    student_records.append(new_student)
+
+    print(
+        'Student "' + student_name + '" added successfully.'
+    )
+
+
+def display_all_students(student_records):
+
+    if len(student_records) == 0:
+        print("No student records have been added.")
+        return
+
+    print()
+    print("-" * 70)
+    print(
+        f"{'Name':20}"
+        f"{'ID':15}"
+        f"{'Scores':25}"
+        f"{'Average':10}"
+    )
+    print("-" * 70)
+
+    for current_student in student_records:
+
+        student_name = current_student["name"]
+        student_id = current_student["id"]
+        student_scores = current_student["scores"]
+
+        scores_text = ""
+
+        for score_position in range(len(student_scores)):
+
+            scores_text = scores_text + str(
+                student_scores[score_position]
+            )
+
+            if score_position < len(student_scores) - 1:
+                scores_text = scores_text + ", "
+
+        average_score = calculate_average(student_scores)
+
+        print(
+            f"{student_name:20}"
+            f"{student_id:<15}"
+            f"{scores_text:25}"
+            f"{average_score:<10}"
+        )
+
+    print("-" * 70)
+
+
+def find_student_average(student_records):
+
+    student_id_to_find = int(
+        input("Enter student ID: ")
+    )
+
+    student_found = False
+
+    for current_student in student_records:
+
+        if current_student["id"] == student_id_to_find:
+
+            student_name = current_student["name"]
+            student_scores = current_student["scores"]
+
+            average_score = calculate_average(
+                student_scores
+            )
+
+            print(
+                student_name
+                + "'s average score:",
+                average_score
+            )
+
+            student_found = True
+            break
+
+    if student_found == False:
+        print("Error: Student ID was not found.")
+
+
+def display_menu():
+
+    print()
+    print("================================")
+    print("   STUDENT RECORD SYSTEM MENU")
+    print("================================")
+    print("1. Add student")
+    print("2. Display all students")
+    print("3. Calculate average score")
+    print("4. Quit")
+
+
+def main():
+
+    student_records = []
+
+    program_running = True
+
+    while program_running == True:
+
+        display_menu()
+
+        selected_option = input(
+            "Enter your choice (1-4): "
+        )
+
+        if selected_option == "1":
+            add_student(student_records)
+
+        elif selected_option == "2":
+            display_all_students(student_records)
+
+        elif selected_option == "3":
+            find_student_average(student_records)
+
+        elif selected_option == "4":
+            print("Goodbye!")
+
+            program_running = False
+
+        else:
+            print(
+                "Error: Please choose a number from 1 to 4."
+            )
+
+
+main()
