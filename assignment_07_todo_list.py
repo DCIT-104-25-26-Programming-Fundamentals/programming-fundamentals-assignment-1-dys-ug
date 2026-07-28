@@ -79,3 +79,98 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def add_task(task_list):
+
+    task_description = input("Enter task: ")
+
+    task_list.append(task_description)
+
+    print('Task added: "' + task_description + '"')
+
+
+def view_tasks(task_list):
+
+    if len(task_list) == 0:
+        print("Your to-do list is empty.")
+
+    else:
+        print("Your Tasks:")
+
+        task_number = 1
+
+        for current_task in task_list:
+            print(str(task_number) + ".", current_task)
+
+            task_number = task_number + 1
+
+
+def delete_task(task_list):
+
+    if len(task_list) == 0:
+        print("There are no tasks to delete.")
+        return
+
+    view_tasks(task_list)
+
+    task_number = int(
+        input("Enter task number to delete: ")
+    )
+
+    if task_number < 1 or task_number > len(task_list):
+        print("Error: Invalid task number.")
+
+    else:
+        task_position = task_number - 1
+
+        deleted_task = task_list.pop(task_position)
+
+        print(
+            'Task "' + deleted_task + '" has been removed.'
+        )
+
+
+def display_menu():
+
+    print()
+    print("============================")
+    print("     TO-DO LIST MENU")
+    print("============================")
+    print("1. Add task")
+    print("2. View tasks")
+    print("3. Delete task")
+    print("4. Quit")
+
+
+def main():
+
+    task_list = []
+
+    program_running = True
+
+    while program_running == True:
+
+        display_menu()
+
+        selected_option = input(
+            "Enter your choice (1-4): "
+        )
+
+        if selected_option == "1":
+            add_task(task_list)
+
+        elif selected_option == "2":
+            view_tasks(task_list)
+
+        elif selected_option == "3":
+            delete_task(task_list)
+
+        elif selected_option == "4":
+            print("Goodbye!")
+
+            program_running = False
+
+        else:
+            print("Error: Please choose a number from 1 to 4.")
+
+
+main()
